@@ -1,0 +1,10 @@
+
+.echo-toc input[type=checkbox]{
+	
+}
+.echo-toc ul{
+	display:none;
+}
+.echo-toc input[type=checkbox]:checked ~ ul{
+	display:block;
+}
