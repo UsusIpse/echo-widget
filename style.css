@@ -1,6 +1,6 @@
 
 .echo-toc input[type=checkbox]{
-	
+	display:none;
 }
 .echo-toc ul{
 	display:none;

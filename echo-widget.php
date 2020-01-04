@@ -33,11 +33,15 @@ class EchoKB_TOC_Widget extends WP_Widget {
 		if ( ! empty( $instance['title'] ) ) {
 			echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ) . $args['after_title'];
 		}
+		global $post;		
+		$checkMe = get_the_terms($post->ID, 'epkb_post_type_1_category');
 		
-		
-		$custom_terms = get_terms('epkb_post_type_1_category');
+
+		$custom_terms = get_terms('epkb_post_type_1_category');	
 		echo '<div class="echo-toc">';
 		foreach($custom_terms as $custom_term) {
+			
+			
 			wp_reset_query();
 			$args = array(
 				'post_type' => 'epkb_post_type_1',
@@ -52,18 +56,24 @@ class EchoKB_TOC_Widget extends WP_Widget {
 				),
 			 );
 			//add_filter( 'posts_orderby', array(&$this, 'filter_query' ));
-			 $loop = new WP_Query($args);
-			 //remove_filter( 'posts_orderby', array(&$this,'filter_query' ));
+			$loop = new WP_Query($args);
+			//remove_filter( 'posts_orderby', array(&$this,'filter_query' ));
 			
-			if($loop->have_posts()) {		
-				echo '<input type="checkbox" id="check_' . $custom_term->name . '">';
+			echo '<div class="echo-col">';
+			if($loop->have_posts()) {	
+				if($checkMe[0]->slug == $custom_term->slug){
+					echo '<input type="checkbox" id="check_' . $custom_term->name . '" checked>';
+				}else{
+					echo '<input type="checkbox" id="check_' . $custom_term->name . '">';
+				}
+				
 				echo '<label for ="check_' . $custom_term->name . '">'.$custom_term->name.'</label>';
 				
 				echo '<ul>';
 				while($loop->have_posts()) : $loop->the_post();
 					echo '<li><a href="'.get_permalink().'">'.get_the_title().'</a></li>';
 				endwhile;
-				echo '</ul></br>';
+				echo '</ul></div>';
 			}
 			
 		}
