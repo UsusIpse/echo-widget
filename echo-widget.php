@@ -4,7 +4,7 @@ Plugin Name: Echo Widget
 Plugin URI: http://wordpress.org/extend/plugins/#
 Description: Add widget to create sidebar menu for Echo KB
 Author: Chris Butler
-Version: 1.0
+Version: 1.1
 */
 // que style
 add_action('wp_enqueue_scripts', 'echotoc_scripts');
